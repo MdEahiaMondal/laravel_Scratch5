@@ -10,19 +10,39 @@
         <br>
         <br>
         <br>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session()->has('success'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{{ session('success') }}</li>
+                </ul>
+            </div>
+        @endif
+
         <h3 class="pb-3 mb-4 font-italic border-bottom">
             Registration  Form
         </h3>
-        <form action="{{ route('register.store') }}">
+        <form action="{{ route('register.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" id="name" aria-describedby="name" placeholder="Enter Name">
+                <input type="text" name="name" value="{{ old('name') }}"  class="form-control" id="name" aria-describedby="name" placeholder="Enter Name">
             </div>
 
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
 
             <div class="form-group">
