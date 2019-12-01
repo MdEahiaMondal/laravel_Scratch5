@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                   a     < href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -82,7 +82,41 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
+
                 </div>
+
+                @unless (Auth::check())
+                    You are not signed in.
+                @endunless
+                <br>
+                @php
+                    $records = 10;
+                @endphp
+
+                @isset($records)
+                     {{ $records }} is defined and is not null...
+                @endisset
+
+                <br>
+                @empty($records)
+                    mkk
+               @endempty
+
+                <br>
+
+                @auth
+                     The user is authenticated...
+                @endauth
+
+                <br>
+                @guest
+                    // The user is not authenticated...
+                @endguest
+
+                <br>
+                <br>
+                <br>
+                <br>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
