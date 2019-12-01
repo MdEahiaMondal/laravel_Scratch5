@@ -16,8 +16,3 @@ Route::get('/', function () {
 });
 
 
-Route::get('register', 'Frontend\RegisterFormController@showForm');
-Route::POST('register', 'Frontend\RegisterFormController@store')->name('register.store');
-
-
-
