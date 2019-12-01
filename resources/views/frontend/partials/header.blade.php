@@ -12,12 +12,13 @@
             </a>
 
             @auth
-                <a class="btn btn-sm btn-outline-secondary" href="#0}">Profile</a>
+                <a class="btn btn-sm btn-outline-secondary" href="#0">Profile</a>
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('logout') }}">Logout</a>
             @endauth
 
             @guest
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('register') }}">Sign up</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Login</a>
             @endguest
 
         </div>

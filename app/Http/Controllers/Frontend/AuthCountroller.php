@@ -59,14 +59,12 @@ class AuthCountroller extends Controller
         {
             User::create($data);
 
-            session()->flash('message', 'Registration Successfull !');
-            session()->flash('type', 'success');
+            $this->setSuccessMessage('Registration Successfull !');
 
             return redirect()->route('login');
         }catch (Exception $exception)
         {
-            session()->flash('message', $exception->getMessage());
-            session()->flash('type', 'danger');
+            $this->setErrorMessage($exception->getMessage());
             return redirect()->back();
         }
 
@@ -91,13 +89,11 @@ class AuthCountroller extends Controller
 
        if (auth()->attempt($credentials))
        {
-           session()->flash('message', 'your are now login !');
-           session()->flash('type', 'success');
+           $this->setSuccessMessage('your are now login');
             return redirect()->route('home');
        }
 
-       session()->flash('message', 'Invalid Credentials !');
-       session()->flash('type', 'danger');
+       $this->setErrorMessage('Invalide Credentials');
 
        return redirect()->back();
 
@@ -110,6 +106,7 @@ class AuthCountroller extends Controller
     {
         auth()->logout();
 
+        $this->setSuccessMessage('Your are now logout');
         return redirect()->route('login');
     }
 
