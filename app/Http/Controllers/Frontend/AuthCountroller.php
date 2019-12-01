@@ -76,8 +76,43 @@ class AuthCountroller extends Controller
 
     public function showLoginForm()
     {
-        dd('login pages');
+        return view('frontend.auth.login');
     }
+
+
+    public function loginCheck(Request $request)
+    {
+       $credentials = $request->only(['email', 'password']);
+
+       $this->validate($request, [
+           'email' => 'required',
+           'password' => 'required',
+       ]);
+
+       if (auth()->attempt($credentials))
+       {
+           session()->flash('message', 'your are now login !');
+           session()->flash('type', 'success');
+            return redirect()->route('home');
+       }
+
+       session()->flash('message', 'Invalid Credentials !');
+       session()->flash('type', 'danger');
+
+       return redirect()->back();
+
+
+    }
+
+
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect()->route('login');
+    }
+
 
 
 

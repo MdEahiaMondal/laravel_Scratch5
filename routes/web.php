@@ -13,13 +13,15 @@
 
 Route::get('/', function () {
     return view('frontend.home');
-});
+})->name('home');
 
 
 // Frontend Controller
 Route::get('register', 'Frontend\AuthCountroller@showRegisterForm')->name('register');
 Route::post('register', 'Frontend\AuthCountroller@processRegister')->name('register.store');
 Route::get('login', 'Frontend\AuthCountroller@showLoginForm')->name('login');
+Route::post('login', 'Frontend\AuthCountroller@loginCheck')->name('login.check');
+Route::get('logout', 'Frontend\AuthCountroller@logout')->name('logout');
 
 
 
