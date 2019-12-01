@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 
+Route::get('register', 'Frontend\RegisterFormController@showForm');
 
 
 

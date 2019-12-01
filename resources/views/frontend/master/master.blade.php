@@ -26,14 +26,17 @@
    @include('frontend.partials.header')
     </div>
 
-    @yield('slider')
-
     @yield('feature_post')
 </div>
 
 <main role="main" class="container">
 
-    @yield('mainContent')
+    <div class="row">
+        @yield('mainContent')
+
+        @yield('sidebar')
+    </div><!-- /.row -->
+
 
 
 
