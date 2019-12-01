@@ -22,7 +22,7 @@
         @endif
 
         @if (session()->has('success'))
-            <div class="alert alert-danger">
+            <div class="alert alert-success">
                 <ul>
                     <li>{{ session('success') }}</li>
                 </ul>
