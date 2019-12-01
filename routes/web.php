@@ -16,3 +16,8 @@ Route::get('/', function () {
 });
 
 
+// Frontend Controller
+Route::get('register', 'Frontend\AuthCountroller@showRegisterForm')->name('register');
+
+
+
