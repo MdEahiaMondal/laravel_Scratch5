@@ -21,18 +21,21 @@
             </div>
         @endif
 
-        @if (session()->has('success'))
-            <div class="alert alert-success">
+        @if (session()->has('message'))
+            <div class="alert alert-{{ session('type') }}">
                 <ul>
-                    <li>{{ session('success') }}</li>
+                    <li>{{ session('message') }}</li>
                 </ul>
             </div>
         @endif
 
+
+
+
         <h3 class="pb-3 mb-4 font-italic border-bottom">
             Registration  Form
         </h3>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{ route('register.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
@@ -56,8 +59,8 @@
             </div>
 
             <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" name="password" class="form-control" id="confirm_password" placeholder="Password">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Password">
             </div>
 
             <div class="form-group">

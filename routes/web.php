@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 // Frontend Controller
 Route::get('register', 'Frontend\AuthCountroller@showRegisterForm')->name('register');
+Route::post('register', 'Frontend\AuthCountroller@processRegister')->name('register.store');
+Route::get('login', 'Frontend\AuthCountroller@showLoginForm')->name('login');
 
 
 
