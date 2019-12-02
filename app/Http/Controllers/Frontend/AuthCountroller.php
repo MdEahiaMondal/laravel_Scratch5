@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\User;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -90,7 +90,7 @@ class AuthCountroller extends Controller
        if (auth()->attempt($credentials))
        {
            $this->setSuccessMessage('your are now login');
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
        }
 
        $this->setErrorMessage('Invalide Credentials');

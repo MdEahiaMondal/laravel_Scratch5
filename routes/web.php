@@ -25,3 +25,8 @@ Route::get('logout', 'Frontend\AuthCountroller@logout')->name('logout');
 
 
 
+// BackendController
+Route::get('dashboard', 'Backend\DashboardController@index')->name('dashboard');
+Route::resource('categories', 'Backend\CategoryController');
+Route::resource('posts', 'Backend\PostController');
+
