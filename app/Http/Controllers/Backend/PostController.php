@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,25 +17,33 @@ class PostController extends Controller
        return view('backend.pages.post.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $categories = Category::where('status', 1)->get();
+        return view('backend.pages.post.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $request['status'] = 'draft';
+        $request['thumnbnail_path'] = 'default.png';
+        $request['user_id'] = auth()->id();
+
+        Post::create($request->all());
+
+        $this->setSuccessMessage('Post create success');
+
+        return redirect()->back();
+
     }
 
     /**

@@ -28,7 +28,7 @@
             </div><!-- /.blog-post -->
         @endforeach
 
-        {{ $posts->links() }}
+{{--        {{ $posts->links() }}--}}
 
 
 

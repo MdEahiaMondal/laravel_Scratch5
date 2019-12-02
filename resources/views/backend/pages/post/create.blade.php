@@ -22,54 +22,49 @@
                 @if(auth()->check())
                     {{ auth()->user()->name }}
                 @endif
-                    <small><a class="float-right btn btn-primary" href="{{ route('posts.create') }}">Create</a></small>
             </h2>
 
 
-
-
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">SI</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Content</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Satus</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach($posts as $key => $post)
-                    <tr>
-                        <th scope="row">{{$key +1 }}</th>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ $post->content }}</td>
-                        <td>{{ $post->user->name }}</td>
-                        <td>
-
-                            @if( $post->status == 'draft')
-                                <a class="badge badge-secondary" href="#0">Unactive</a>
-                            @else
-                                <a class="badge badge-primary" href="#0">Active</a>
-                            @endif
-
-                        </td>
-                        <td width="100">
-                            <a class="btn btn-primary" href="#0">Details</a>
-                            <a class="btn btn-warning" href="#0">Edit</a>
-                            <a class="btn btn-danger" href="#0">Delete</a>
-                        </td>
-                    </tr>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <p class="alert alert-danger">{{ $error }}</p>
                 @endforeach
+             @endif
+
+            @if(session()->has('message'))
+                <div class="alert alert-{{ session('type') }}">
+                    <p>{{ session('message') }}</p>
+                </div>
+            @endif
 
 
-                </tbody>
-            </table>
+            <form action="{{ route('posts.store') }}" method="post" >
+                @csrf
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" value="{{ old('title') }}"  class="form-control" id="title" aria-describedby="title" placeholder="Enter Name">
+                </div>
 
-            {{ $posts->links() }}
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Example select</label>
+                    <select class="form-control" name="category_id" id="exampleFormControlSelect1">
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                     @endforeach
+                    </select>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea class="form-control" id="content" name="content">{{ old('content') }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
 
 
         </div><!-- /.blog-post -->

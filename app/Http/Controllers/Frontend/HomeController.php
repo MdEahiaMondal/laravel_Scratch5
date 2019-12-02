@@ -5,13 +5,20 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
 
     public function index()
     {
-        $posts = Post::with('user', 'category')->latest()->paginate(10);
+
+        $posts = Cache::rememberForever('posts',  function () {
+            return Post::with('user', 'category')->orderBy('created_at', 'desc')->get();
+        });
+
+//        $posts = Post::with('user', 'category')->latest()->get();
+
         return view('frontend.home', compact('posts'));
     }
 

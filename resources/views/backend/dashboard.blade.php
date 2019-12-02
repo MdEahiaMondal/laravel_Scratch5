@@ -18,9 +18,16 @@
     <div class="col-md-8 blog-main">
 
         <div class="blog-post">
-            <h2 class="blog-post-title">{{ auth()->user()->name }}</h2>
-            <p class="blog-post-meta">{{ auth()->user()->email }}</p>
-
+            <h2 class="blog-post-title">
+                @if(auth()->check())
+                    {{ auth()->user()->name }}
+                @endif
+            </h2>
+            <p class="blog-post-meta">
+                @if(auth()->check())
+                    {{ auth()->user()->email }}
+                @endif
+            </p>
 
             <a class="btn btn-primary btn-block" href="{{ route('categories.index') }}">Category</a>
             <a class="btn btn-primary btn-block" href="{{ route('posts.index') }}">Posts</a>
