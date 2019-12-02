@@ -17,6 +17,7 @@ class HomeController extends Controller
             return Post::with('user', 'category')->orderBy('created_at', 'desc')->get();
         });
 
+
 //        $posts = Post::with('user', 'category')->latest()->get();
 
         return view('frontend.home', compact('posts'));
