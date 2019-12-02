@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\User;
+
+use App\Mail\UserVerifyEmail;
+use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class AuthCountroller extends Controller
@@ -47,17 +51,21 @@ class AuthCountroller extends Controller
         }
 
 
+        /** @noinspection PhpDeprecationInspection */
         $data = [
             'name' => $request->input('name'),
             'email' => strtolower($request->input('email')),
             'phone' => $request->input('phone'),
             'password' => bcrypt($request->input('password')),
             'avatar' => $setImageName,
+            'email_verification_token' => str_random(32),
         ];
 
         try
         {
-            User::create($data);
+            $user = User::create($data);
+
+            Mail::to($user->email)->send(new UserVerifyEmail($user));
 
             $this->setSuccessMessage('Registration Successfull !');
 
@@ -70,6 +78,38 @@ class AuthCountroller extends Controller
 
 
     }
+
+
+    public function verifyUser($token)
+    {
+        if ($token === null)
+        {
+            $this->setErrorMessage('invalide Token');
+            auth()->logout();
+            return redirect()->route('login');
+        }
+
+        $user = User::where('email_verification_token', $token)->first();
+
+        if ($user === null)
+        {
+            $this->setErrorMessage('invalide Token');
+                auth()->logout();
+            return redirect()->route('login');
+        }
+
+
+        $user->update([
+            'email_verification_token' => '',
+            'email_verified' => 1,
+            'email_verified_at' => Carbon::now()
+        ]);
+
+        $this->setSuccessMessage('Your Account Actived, you can now login');
+        return redirect()->route('login');
+    }
+
+
 
 
     public function showLoginForm()
@@ -87,8 +127,18 @@ class AuthCountroller extends Controller
            'password' => 'required',
        ]);
 
+
        if (auth()->attempt($credentials))
        {
+           $user = auth()->user();
+
+           if ($user->email_verified === 0)
+           {
+               $this->setErrorMessage('Your Acount Not Active please Verify your email');
+               auth()->logout();
+               return redirect()->route('login');
+           }
+
            $this->setSuccessMessage('your are now login');
             return redirect()->route('dashboard');
        }

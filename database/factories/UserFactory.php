@@ -24,5 +24,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => bcrypt('12345678'),
         'phone' => $faker->unique()->phoneNumber,
         'avatar' => $faker->imageUrl(),
+        'email_verified' => 1,
+        'email_verification_token' => '',
     ];
 });

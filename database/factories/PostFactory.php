@@ -5,7 +5,7 @@
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\User;
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Post::class, function (Faker $faker) {
