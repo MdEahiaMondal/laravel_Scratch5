@@ -55,12 +55,12 @@
 
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" name="password" value="12345678" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
 
             <div class="form-group">
                 <label for="password_confirmation">Confirm Password</label>
-                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Password">
+                <input type="password" name="password_confirmation"  value="12345678" class="form-control" id="password_confirmation" placeholder="Password">
             </div>
 
             <div class="form-group">

@@ -11,6 +11,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class UserVerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
+    /**
+     * @var User
+     */
+    public $user;
 
     /**
      * Create a new message instance.
@@ -19,6 +23,8 @@ class UserVerifyEmail extends Mailable
      */
     public function __construct(User $user)
     {
+        info($user);
+
         $this->user = $user;
     }
 
@@ -27,8 +33,10 @@ class UserVerifyEmail extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
-        return $this->view('frontend.email.userVerifiEmail')->with('user',$this->user);
+        $user = $this->user;
+        return $this->view('frontend.email.userVerifiEmail', compact('user'));
     }
 }

@@ -13,11 +13,11 @@
 
 <p>
     we are proude that your are now our user ,, if you want to more speacial content please Verify your email
-
     <a class="btn btn-primary" href="{{ route('verify.user', $user->email_verification_token) }}">Verifi</a>
 </p>
 
 <h3>Thank you</h3>
+
 
 </body>
 </html>

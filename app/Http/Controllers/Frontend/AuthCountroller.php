@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 
 use App\Mail\UserVerifyEmail;
+use App\Notifications\VerifyUserEmail;
 use App\User;
 use Carbon\Carbon;
 use Exception;
@@ -65,7 +66,8 @@ class AuthCountroller extends Controller
         {
             $user = User::create($data);
 
-            Mail::to($user->email)->send(new UserVerifyEmail($user));
+//            Mail::to($user->email)->queue(new UserVerifyEmail($user));
+            $user->notify(new VerifyUserEmail($user));
 
             $this->setSuccessMessage('Registration Successfull !');
 
