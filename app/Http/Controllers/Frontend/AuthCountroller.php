@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 
 use App\Mail\UserVerifyEmail;
+use App\Notifications\notifyAdmin;
 use App\Notifications\VerifyUserEmail;
 use App\User;
 use Carbon\Carbon;
@@ -68,6 +69,15 @@ class AuthCountroller extends Controller
 
 //            Mail::to($user->email)->queue(new UserVerifyEmail($user));
             $user->notify(new VerifyUserEmail($user));
+
+
+            $admin = User::find(176);
+            if ($admin->id === 176)
+            {
+                $admin->notify(new  notifyAdmin($user));
+            }
+
+
 
             $this->setSuccessMessage('Registration Successfull !');
 

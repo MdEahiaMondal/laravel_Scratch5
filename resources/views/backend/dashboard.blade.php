@@ -19,15 +19,34 @@
 
         <div class="blog-post">
             <h2 class="blog-post-title">
+
                 @if(auth()->check())
                     {{ auth()->user()->name }}
                 @endif
             </h2>
+
             <p class="blog-post-meta">
                 @if(auth()->check())
                     {{ auth()->user()->email }}
                 @endif
             </p>
+
+
+            <h5>
+
+                @php
+                    $user = auth()->user();
+                @endphp
+              @if( $user->id == 176)
+                    @foreach ($user->unreadNotifications as $notification)
+                        <p>{{ $notification->data['user'] }}  Just Registered</p>
+                        {{  $notification->markAsRead() }}
+                @endforeach
+
+                @endif
+
+            </h5>
+
 
             <a class="btn btn-primary btn-block" href="{{ route('categories.index') }}">Category</a>
             <a class="btn btn-primary btn-block" href="{{ route('posts.index') }}">Posts</a>
