@@ -4,6 +4,8 @@ namespace App\Notifications;
 
 use App\User;
 use Illuminate\Bus\Queueable;
+
+use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -50,6 +52,17 @@ class VerifyUserEmail extends Notification implements ShouldQueue
                     ->action('click to verify', route('verify.user', $this->user->email_verification_token))
                     ->line('Thank you for using our application!');
     }
+
+
+
+
+
+  /*  public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+            ->content('Hey Your accoutn create successfully');
+    }*/
+
 
     /**
      * Get the array representation of the notification.

@@ -24,6 +24,13 @@ class User extends Authenticatable
         'name', 'email', 'password', 'phone', 'avatar', 'email_verified', 'email_verified_at', 'email_verification_token',
     ];
 
+
+    public function routeNotificationForNexmo($notification)
+    {
+        return $this->phone;
+    }
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
