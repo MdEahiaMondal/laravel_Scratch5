@@ -17,7 +17,7 @@ class PostCreated implements ShouldBroadcast
     /**
      * @var Post
      */
-    private $post;
+    public $post;
 
     /**
      * Create a new event instance.
