@@ -144,6 +144,10 @@ class AuthCountroller extends Controller
        {
            $user = auth()->user();
 
+           $user->last_login = Carbon::now();
+           $user->save();
+
+
            if ($user->email_verified === 0)
            {
                $this->setErrorMessage('Your Acount Not Active please Verify your email');
